@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <input type="text" id="valOne" />
+
+    <button id="btn">ADD</button>
+
+    <div id="movieList"></div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script>
+
+        var $valOne = $("#valOne");
+        var $instance = $("#movieList");
+
+        $("#btn").on('click',function () {
+
+            var movieData = {
+                MovieName: $valOne.val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://localhost:44300/api/Movies',
+                data: movieData,
+                success: function (movies) {
+                    $instance.append("<div> Name:" + movies.MovieName + "</div>");
+
+                },
+                error: function () {
+                    alert("There was an error !!");
+                }
+            });
+
+
+        });
+
+    </script>
+</body>
+</html>
